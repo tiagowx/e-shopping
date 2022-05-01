@@ -1,14 +1,17 @@
 import { BrowserRouter as Router } from 'react-router-dom';
-import './App.css';
+import { Provider } from 'react-redux';
+import store from './store'
 import Header from './components/Header';
 import MainRoutes from './routes';
 
 function App() {
   return (
-    <Router>
-      <Header />
-      <MainRoutes />
-    </Router>
+    <Provider store={store}>
+      <Router>
+        <Header />
+        <MainRoutes />
+      </Router>
+    </Provider>
   );
 }
 

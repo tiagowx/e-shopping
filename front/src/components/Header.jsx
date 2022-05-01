@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import {
+    Avatar,
     Box,
     Button,
     Grid,
@@ -19,7 +20,7 @@ const Header = () => {
                 p:'0 100px'
             }}>
                 <Link to='/'>
-                    <img height="100%" src="./imgs/logo.png" />
+                    <Avatar height="100%" src="./imgs/logo.png" />
                 </Link>
             </Box>
             <Paper sx={{
