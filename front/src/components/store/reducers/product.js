@@ -4,7 +4,7 @@ const productsList = [
     name: "Adesivo Tria",
     description: "Adesivo customizado diferenciado e da hora.",
     price: 1.99,
-    categories: "adesivo",
+    categories: "adesivo, anime",
     image: "./imgs/logo.png",
     selected: false
   },
@@ -13,7 +13,7 @@ const productsList = [
     name: "Caneca da Tria",
     description: "Caneca customizada diferenciada e da hora.",
     price: 10.99,
-    categories: "caneca",
+    categories: "caneca, anime",
     image: "./imgs/logo.png",
     selected: false
   },
@@ -28,6 +28,15 @@ const productsList = [
   },
   {
     id: 4,
+    name: "Almofadas",
+    description: "Almofadas customizado diferenciado e da hora.",
+    price: 14.99,
+    categories: "almofada",
+    image: "./imgs/logo.png",
+    selected: false
+  },
+  {
+    id: 5,
     name: "Squeeze",
     description: "Squeeze customizado diferenciado e da hora.",
     price: 14.99,
@@ -35,6 +44,7 @@ const productsList = [
     image: "./imgs/logo.png",
     selected: false
   },
+
 ];
 
 export default productsList;

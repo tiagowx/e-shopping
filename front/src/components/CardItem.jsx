@@ -1,24 +1,44 @@
 import React from 'react';
 import { Button, Grid, Paper, Typography } from '@mui/material';
 import { Box } from '@mui/system';
+import { useDispatch, useSelector } from 'react-redux';
+import cartActions from './store/actions/cart';
 
 const CardItem = ({ name, price, img, description }) => {
 
-  return (
-    <Grid item display='flex' flexDirection="column" alignContent="space-between" mx={1}>
-      <Paper sx={{
-        width: '210px',
-        height: '320px',
-      }}>
-        <img width="100%" height="auto" src={img} alt={description} />
+  const cart = useSelector(state => state.cart.value);
+  const dispatch = useDispatch();
+  console.log(cartActions);
 
-        <Box item textAlign="center">
-          <Typography variant="h6">{name}</Typography>
+  return (
+    <Grid item display='flex' flexDirection="column" justifyContent="space-between" mx={1}>
+      <Paper sx={{
+        width: '180px',
+        minHeight: '320px',
+        display: 'flex',
+        flexDirection: 'column',
+        textAlign: 'center'
+      }}>
+        <img flex='1' width="100%" height="auto" src={img} alt={description} />
+        <Box sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          textAlign: 'center',
+          flex: 1,
+          justifyContent: 'space-between'
+
+        }}>
+          <Typography variant="h6" lineHeight="1">{name}</Typography>
           <Typography variant="p">{description}</Typography>
-          <Typography variant="subtitle1">R$ {price}</Typography>
+          <Typography justifySelf="end" variant="subtitle1">R$ {price}</Typography>
         </Box>
       </Paper>
-      <Button variant="contained">Adicionar</Button>
+      <Button
+        variant="contained"
+        onClick={() =>dispatch(cartActions.Increment(cart))}
+      >
+        Adicionar
+      </Button>
     </Grid>
   )
 }

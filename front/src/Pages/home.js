@@ -1,35 +1,43 @@
 import React from 'react';
-import { Box, Container, Grid } from '@mui/material'
+import { Container, Grid } from '@mui/material'
 import Categories from '../components/Categories';
 import TypeItem from '../components/TypeItem';
 import CardItem from '../components/CardItem';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 
-const HomePage = ({ products }) => {
-  console.log(products);
+const HomePage = () => {
+  const products = useSelector(state => state.products);
+
+  const allCategories = "".concat(products.map(
+    item => item.categories
+  ))
+  console.log(allCategories);
+
+  const categories = allCategories.split(",")
+    .filter((item, index, arr) => {
+      return arr.indexOf(item, index + 1) === -1
+    });
+
   return (
     <Container maxWidth="xl" >
-      <Grid container direction="row" display='flex'>
-        <Categories>
-          <TypeItem name="Adesivos" quantity={25} />
-          <TypeItem name="Camisas" quantity={32} />
-          <TypeItem name="Canecas" quantity={12} />
-          <TypeItem name="Copos" quantity={23} />
+      <Grid container >
+        <Categories flex="1">
+          {categories.map((item, index) =>
+            <TypeItem key={index} name={item} />
+          )}
         </Categories>
-        <Box container px={1}>
-          <Grid container maxWidth="400rem">
-            {products.map(item => (
-              <CardItem
-                key={item.id}
-                name={item.name}
-                price={item.price}
-                img={item.image}
-                description={item.description}
-                categories={item.categories}
-              />
-            ))}
-          </Grid>
-        </Box>
+        <Grid container flex="1">
+          {products.map(item => (
+            <CardItem
+              key={item.id}
+              name={item.name}
+              price={item.price}
+              img={item.image}
+              description={item.description}
+              categories={item.categories}
+            />
+          ))}
+        </Grid>
 
 
       </Grid>
@@ -37,8 +45,4 @@ const HomePage = ({ products }) => {
   )
 }
 
-const mapStateToProps = state => ({
-  products: state.products
-})
-
-export default connect(mapStateToProps)(HomePage);
+export default HomePage;

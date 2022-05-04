@@ -1,33 +1,34 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import Logo from '../storage/main/logo.png';
 import {
-    Avatar,
     Box,
     Button,
     Grid,
     Paper
 } from '@mui/material';
+import Cart from './Cart';
 
 
 const Header = () => {
 
     return (
         <Grid container display="flex" alignItems="start"
-            justifyContent="start"  py="16px" component="header" >
+            justifyContent="start" py="16px" component="header" >
             <Box sx={{
                 width: 'auto',
                 height: '128px',
-                p:'0 100px'
+                p: '0 100px'
             }}>
                 <Link to='/'>
-                    <Avatar height="100%" src="./imgs/logo.png" />
+                    <img height="100%" src={Logo} alt="logo" />
                 </Link>
             </Box>
             <Paper sx={{
                 width: '720px',
                 height: '120px',
             }}>
-                
+
             </Paper>
             <Box >
                 <Link to="/">
@@ -36,6 +37,7 @@ const Header = () => {
                 <Link to="/contato">
                     <Button>Contato</Button>
                 </Link>
+                <Cart/>
             </Box>
         </Grid>
 
