@@ -8,11 +8,10 @@ const Cart = () => {
   const cart = useSelector(state => state.cart);
 
   const [open, setOpen] = useState(false);
-  const handleOpen = () => setOpen(true);
+  const handleOpen = () => {
+    setOpen(true);
+  }
   const handleClose = () => setOpen(false);
-  const handleIncrement = () => {};
-  const handleDecrement = () => {};
-  const handleRemove = () => {};
 
   return (
     <>
@@ -25,48 +24,53 @@ const Cart = () => {
         onClose={handleClose}
         aria-labelledby="parent-modal-title"
         aria-describedby="parent-modal-description"
+        sx={{
+          display: 'flex',
+          justifyContent: 'center',
+          width: 'auto',
+          height: 'auto',
+          paddingX: '8px',
+          overflowY: 'auto'
+        }}
       >
-        <Box display="absolute" margin="auto" height="auto">
-          <Paper sx={{
-            width: 600,
-            margin: 'auto',
-            paddingX: '8px'
-          }}>
+        <Box display="absolute" >
+          <Paper>
             <Typography variant="h5">Carrinho</Typography>
             <TableContainer component={Paper}>
-              <Table sx={{ minWidth: 600 }} aria-label="caption table">
+              <Table aria-label="caption table">
                 <TableHead>
                   <TableRow>
                     <TableCell align="center">#</TableCell>
                     <TableCell align="center">Item</TableCell>
+                    <TableCell align="center">Image</TableCell>
                     <TableCell align="center">Quantidade</TableCell>
                     <TableCell align="center">Preço Untário</TableCell>
                     <TableCell align="center">Preço Total</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  <TableRow key={0}>
-                    <TableCell component="th" scope="row">
-                      0045
-                    </TableCell>
-                    <TableCell align="center">Nome</TableCell>
-                    <TableCell width="40px" align="center">
-                      <Input align="center" type="number" value={1}></Input>
-                    </TableCell>
-                    <TableCell align="center">R$ 12,00</TableCell>
-                    <TableCell align="center">R$ 36,00</TableCell>
-                  </TableRow>
-                  {[].map((row) => (
-                    <TableRow key={row.name}>
-                      <TableCell component="th" scope="row">
-                        {row.name}
-                      </TableCell>
-                      <TableCell align="right">{row.calories}</TableCell>
-                      <TableCell align="right">{row.fat}</TableCell>
-                      <TableCell align="right">{row.carbs}</TableCell>
-                      <TableCell align="right">{row.protein}</TableCell>
-                    </TableRow>
-                  ))}
+                  {cart.cart.map(item => {
+                    return (
+                      <TableRow key={item.id}>
+                        <TableCell component="th" scope="row">
+                          {item.id}
+                        </TableCell>
+                        <TableCell align="center">{item.name}</TableCell>
+                        <TableCell align="center">
+                          <Box cell display="flex" width="80px">
+                            <img width="80px" height="auto" src={item.image} alt={item.name} />
+                          </Box>
+                        </TableCell>
+                        <TableCell width="40px" align="center">
+                          <Input align="center" type="number" value={item.quantity}></Input>
+                        </TableCell>
+                        <TableCell align="center">R$ {item.price}</TableCell>
+                        <TableCell align="center">R$ {item.price * item.quantity}</TableCell>
+                      </TableRow>
+                    )
+                  })}
+
+
                 </TableBody>
                 <TableFooter>
                   <TableRow>
@@ -84,7 +88,7 @@ const Cart = () => {
                     <TableCell align="center">Qt. de Itens</TableCell>
                     <TableCell align="center">Total</TableCell>
                     <TableCell align="center">
-                      <Typography variant="h6"> R$ 0.00</Typography>
+                      <Typography variant="h6"> {cart.total}</Typography>
                     </TableCell>
                   </TableRow>
                 </TableFooter>

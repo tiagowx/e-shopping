@@ -11,7 +11,6 @@ const HomePage = () => {
   const allCategories = "".concat(products.map(
     item => item.categories
   ))
-  console.log(allCategories);
 
   const categories = allCategories.split(",")
     .filter((item, index, arr) => {
@@ -30,11 +29,7 @@ const HomePage = () => {
           {products.map(item => (
             <CardItem
               key={item.id}
-              name={item.name}
-              price={item.price}
-              img={item.image}
-              description={item.description}
-              categories={item.categories}
+              product={item}
             />
           ))}
         </Grid>

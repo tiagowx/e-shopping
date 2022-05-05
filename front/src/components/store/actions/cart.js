@@ -1,8 +1,8 @@
-const Increment = (cart) => {
-  console.log(cart);
+const Increment = (cart, product) => {
   return {
     type: 'INCREMENT_TO_CART',
-    cart
+    cart,
+    product
   }
 }
 

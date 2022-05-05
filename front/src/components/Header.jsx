@@ -14,7 +14,7 @@ const Header = () => {
 
     return (
         <Grid container display="flex" alignItems="start"
-            justifyContent="start" py="16px" component="header" >
+           py="16px" component="header" >
             <Box sx={{
                 width: 'auto',
                 height: '128px',
@@ -37,8 +37,8 @@ const Header = () => {
                 <Link to="/contato">
                     <Button>Contato</Button>
                 </Link>
-                <Cart/>
             </Box>
+            <Cart />
         </Grid>
 
     )
