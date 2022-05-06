@@ -34,7 +34,7 @@ const CardItem = ({ product }) => {
       </Paper>
       <Button
         variant="contained"
-        onClick={() => dispatch(cartActions.Increment(cart, product))}
+        onClick={() => dispatch(cartActions.Add(cart, product))}
       >
         Adicionar
       </Button>

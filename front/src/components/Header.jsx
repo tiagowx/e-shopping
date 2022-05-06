@@ -24,10 +24,7 @@ const Header = () => {
                     <img height="100%" src={Logo} alt="logo" />
                 </Link>
             </Box>
-            <Paper sx={{
-                width: '720px',
-                height: '120px',
-            }}>
+            <Paper >
 
             </Paper>
             <Box >

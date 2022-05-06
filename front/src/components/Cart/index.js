@@ -1,11 +1,14 @@
-import { Box, Button, Input, Paper, Table, TableBody, TableCell, TableContainer, TableFooter, TableHead, TableRow, Typography } from '@mui/material';
+import { Box, Button, Paper, Table, TableBody, TableCell, TableContainer, TableFooter, TableHead, TableRow, Typography } from '@mui/material';
 import Modal from '@mui/material/Modal';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
+import cartActions from '../store/actions/cart';
+import { useDispatch, useSelector } from 'react-redux';
 
 const Cart = () => {
   const cart = useSelector(state => state.cart);
+
+  const dispatch = useDispatch();
 
   const [open, setOpen] = useState(false);
   const handleOpen = () => {
@@ -16,8 +19,8 @@ const Cart = () => {
   return (
     <>
       <Button variant='outline' onClick={handleOpen}>
+        {cart.value}
         <ShoppingCartIcon color='primary' />
-        <Typography variant='p'>{cart.value}</Typography>
       </Button>
       <Modal
         open={open}
@@ -40,6 +43,7 @@ const Cart = () => {
               <Table aria-label="caption table">
                 <TableHead>
                   <TableRow>
+                    <TableCell align="center"></TableCell>
                     <TableCell align="center">#</TableCell>
                     <TableCell align="center">Item</TableCell>
                     <TableCell align="center">Image</TableCell>
@@ -52,6 +56,11 @@ const Cart = () => {
                   {cart.cart.map(item => {
                     return (
                       <TableRow key={item.id}>
+                        <TableCell align="center">
+                          <Button sx={{ minWidth: '32px' }} onClick={() => dispatch(cartActions.Remove(cart, item))}>
+                            (X)
+                          </Button>
+                        </TableCell>
                         <TableCell component="th" scope="row">
                           {item.id}
                         </TableCell>
@@ -61,11 +70,21 @@ const Cart = () => {
                             <img width="80px" height="auto" src={item.image} alt={item.name} />
                           </Box>
                         </TableCell>
-                        <TableCell width="40px" align="center">
-                          <Input align="center" type="number" value={item.quantity}></Input>
+                        <TableCell align="center">
+                          <Box item display='flex' alignItems='center'>
+                            <Button sx={{ minWidth: '32px' }} onClick={() => dispatch(cartActions.DecrementItem(cart, item))}>
+                              (-)
+                            </Button>
+                            <Typography>
+                              {item.quantity}
+                            </Typography>
+                            <Button sx={{ minWidth: '32px' }} onClick={() => dispatch(cartActions.IncrementItem(cart, item))}>
+                              (+)
+                            </Button>
+                          </Box>
                         </TableCell>
                         <TableCell align="center">R$ {item.price}</TableCell>
-                        <TableCell align="center">R$ {item.price * item.quantity}</TableCell>
+                        <TableCell align="center">R$ {(item.price * item.quantity).toFixed(2).replace('.', ',')}</TableCell>
                       </TableRow>
                     )
                   })}
@@ -88,7 +107,7 @@ const Cart = () => {
                     <TableCell align="center">Qt. de Itens</TableCell>
                     <TableCell align="center">Total</TableCell>
                     <TableCell align="center">
-                      <Typography variant="h6"> {cart.total}</Typography>
+                      <Typography variant="h6"> R$ {(cart.total).toFixed(2).replace('.', ',')}</Typography>
                     </TableCell>
                   </TableRow>
                 </TableFooter>
