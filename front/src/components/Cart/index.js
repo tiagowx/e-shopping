@@ -7,8 +7,14 @@ import { useDispatch, useSelector } from 'react-redux';
 
 const Cart = () => {
   const cart = useSelector(state => state.cart);
-
   const dispatch = useDispatch();
+
+  if (cart.value > 0) {
+    localStorage.setItem('Shopping:Cart', JSON.stringify(cart))
+  } else {
+    localStorage.clear();
+  }
+
 
   const [open, setOpen] = useState(false);
   const handleOpen = () => {
@@ -18,9 +24,11 @@ const Cart = () => {
 
   return (
     <>
-      <Button variant='outline' onClick={handleOpen}>
-        {cart.value}
-        <ShoppingCartIcon color='primary' />
+      <Button variant='contained' color='warning' onClick={handleOpen}>
+        <ShoppingCartIcon />
+        <Typography component='span' px={1}>
+          {cart.value}
+        </Typography>
       </Button>
       <Modal
         open={open}

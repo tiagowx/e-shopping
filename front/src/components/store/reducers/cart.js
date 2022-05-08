@@ -54,8 +54,8 @@ export default function cart(state = INITIAL_STATE, action) {
       return {
         ...state,
         total: state.cart.reduce((a, b) => a + b.price * b.quantity, 0) - action.product.price * action.product.quantity,
-        value: state.cart.reduce((a, b) => a + b.quantity, 0),
-        cart: state.cart.filter((item) => item !== action.product),
+        value: action.cart.value - action.product.quantity,
+        cart: state.cart.filter(item => item.id !== action.product.id),
       }
     }
     case 'INCREMENT_TO_ITEM': {
@@ -67,14 +67,18 @@ export default function cart(state = INITIAL_STATE, action) {
       }
     }
     case 'DECREMENT_TO_ITEM': {
-      action.product.quantity--;
-      if (action.product.quantity < 0) action.product.quantity = 0;
-
-      return {
-        ...state,
-        value: state.cart.reduce((a, b) => a + b.quantity, 0),
-        total: state.cart.reduce((a, b) => a + b.price * b.quantity, 0)
-      }
+      if (action.product.quantity > 0) {
+        action.product.quantity--;
+        return {
+          ...state,
+          value: state.cart.reduce((a, b) => a + b.quantity, 0),
+          total: state.cart.reduce((a, b) => a + b.price * b.quantity, 0)
+        }
+      } else
+        return state;
+    }
+    case 'CHANGE_CART': {
+      return state = action.localCart
     }
 
     default:

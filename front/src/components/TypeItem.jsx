@@ -1,14 +1,17 @@
-import { ListItem, ListItemText } from '@mui/material';
+import { Checkbox, ListItem, ListItemText } from '@mui/material';
 import React from 'react';
 
-const TypeItem = ({name, quantity}) => {
+const TypeItem = ({ key, name, checked, typeShirtId, onClick }) => {
   return (
     <>
-      <ListItem>
-        <ListItemText
-          primary={name}
-          secondary={quantity}
+      <ListItem button onClick={onClick}>
+        <Checkbox
+          edge="start"
+          checked={checked}
+          tabIndex={key}
+          inputProps={{ 'aria-labelledby': typeShirtId }}
         />
+        <ListItemText primary={name} />
       </ListItem>
     </>
   );

@@ -26,11 +26,18 @@ const DecrementItem = (cart, product) => {
     product
   }
 }
+const ChangeCart = (localCart) => {
+  return {
+    type: 'CHANGE_CART',
+    localCart
+  }
+}
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default {
   Add,
   Remove,
   IncrementItem,
-  DecrementItem
+  DecrementItem,
+  ChangeCart
 }
